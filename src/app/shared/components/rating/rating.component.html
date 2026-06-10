@@ -1,0 +1,11 @@
+<div class="stars">
+  @for (star of [1,2,3,4,5]; track star) {
+    <span
+      class="star"
+      [class.active]="star <= value"
+      (click)="rate(star)"
+    >
+      ★
+    </span>
+  }
+</div>

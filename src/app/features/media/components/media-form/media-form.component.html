@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+
+  <input placeholder="Titre" formControlName="title" />
+
+  <input placeholder="Auteur / Créateur" formControlName="creator" />
+
+  <select formControlName="type">
+    @for (item of typeLabels | keyvalue; track item.key) {
+      <option [value]="item.key">{{ item.value }}</option>
+    }
+  </select>
+
+  <select formControlName="status">
+    @for (item of statusLabels | keyvalue; track item.key) {
+      <option [value]="item.key">{{ item.value }}</option>
+    }
+  </select>
+
+  <!-- étoiles ici (remplace input rating) -->
+  <app-rating formControlName="rating" />
+
+  <button type="submit">
+    {{ mediaId ? 'Modifier' : 'Ajouter' }}
+  </button>
+
+</form>

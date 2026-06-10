@@ -1,0 +1,28 @@
+.filters {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .filters {
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+  }
+}
+
+input, select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background: var(--card-color);
+  color: var(--text-color);
+}
+
+button {
+  background: var(--primary-color);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}

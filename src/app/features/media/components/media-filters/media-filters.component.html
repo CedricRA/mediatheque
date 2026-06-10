@@ -1,0 +1,29 @@
+<form [formGroup]="form" class="filters">
+
+  <input placeholder="🔍 Titre" formControlName="title" />
+  <input placeholder="👤 Créateur" formControlName="creator" />
+
+  <select formControlName="type">
+    <option value="">Tous les types</option>
+    @for (item of typeLabels | keyvalue; track item.key) {
+      <option [value]="item.key">{{ item.value }}</option>
+    }
+  </select>
+
+  <select formControlName="status">
+    <option value="">Tous les statuts</option>
+    @for (item of statusLabels | keyvalue; track item.key) {
+      <option [value]="item.key">{{ item.value }}</option>
+    }
+  </select>
+
+  <select formControlName="rating">
+    <option [ngValue]="null">Toutes les notes</option>
+    @for (star of [1,2,3,4,5]; track star) {
+      <option [value]="star">{{ star }} ⭐ et +</option>
+    }
+  </select>
+
+  <button type="button" (click)="reset()">Reset</button>
+
+</form>

@@ -1,0 +1,19 @@
+.stars {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.star {
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #374151;
+  transition: transform 0.1s;
+}
+
+.star.active {
+  color: var(--primary-color);
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
