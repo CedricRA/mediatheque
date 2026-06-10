@@ -15,3 +15,17 @@
 .app-content {
   padding: 2rem;
 }
+
+nav {
+  margin-top: 0.5rem;
+}
+
+nav a {
+  margin-right: 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+}

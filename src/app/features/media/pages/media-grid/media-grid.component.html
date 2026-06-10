@@ -1,0 +1,47 @@
+<app-media-filters (filtersChange)="filters.set($event)" />
+<p>{{ count() }} résultat(s)</p>
+
+<button (click)="toggleForm()">
+  {{ showForm ? 'Fermer le formulaire' : 'Ajouter un média' }}
+</button>
+
+@if (showForm) {
+  <app-media-form [mediaId]="editingId || undefined" (saved)="toggleForm(); clearEdit()" />
+}
+
+<table class="media-table">
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Créateur</th>
+      <th>Type</th>
+      <th>Statut</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (media of filteredMedias(); track media.id) {
+      <tr>
+        <td>{{ media.title }}</td>
+        <td>{{ media.creator }}</td>
+        <td>{{ typeLabels[media.type] }}</td>
+        <td>{{ statusLabels[media.status] }}</td>
+
+        <td>
+          <div class="stars">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <span class="star" [class.active]="star <= (media.rating || 0)">★</span>
+            }
+          </div>
+        </td>
+
+        <td class="actions">
+          <button (click)="edit(media.id)">✏️</button>
+          <button (click)="delete(media.id)">❌</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

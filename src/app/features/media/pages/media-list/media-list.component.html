@@ -1,8 +1,6 @@
 <app-media-filters (filtersChange)="filters.set($event)" />
 <p>{{ count() }} résultat(s)</p>
 
-<h2>Mes contenus</h2>
-
 <button (click)="toggleForm()">
   {{ showForm ? 'Fermer le formulaire' : 'Ajouter un média' }}
 </button>
@@ -37,8 +35,8 @@
 
       <div class="card-footer">
         <div class="actions">
-          <button class="edit-btn" (click)="edit(media.id)">✏️</button>
-          <button class="delete-btn" (click)="delete(media.id)">❌</button>
+          <button (click)="edit(media.id)">✏️</button>
+          <button (click)="delete(media.id)">❌</button>
         </div>
       </div>
     </div>

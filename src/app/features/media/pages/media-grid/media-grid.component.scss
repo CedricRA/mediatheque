@@ -1,0 +1,40 @@
+.media-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.7rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+tr:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+/* étoiles */
+.stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star {
+  color: #374151;
+}
+
+.star.active {
+  color: var(--primary-color);
+}
+
+/* actions */
+.actions {
+  display: flex;
+  gap: 0.3rem;
+}

@@ -5,10 +5,10 @@ export const MEDIA_TYPE_LABELS: Record<MediaType, string> = {
   movie: 'Film',
   series: 'Série',
   album: 'Album',
-  manga: 'Manga'
+  manga: 'Manga',
 };
 
 export const STATUS_LABELS = {
   planned: 'À découvrir',
-  consumed: 'Consommé'
+  consumed: 'Vu',
 };
