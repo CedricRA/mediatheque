@@ -1,6 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { MediaService } from '../../services/media.service';
-import { MediaFormComponent } from '../../components/media-form/media-form.component';
+import { MediaFormDialogComponent } from '../../components/media-form-dialog/media-form-dialog.component';
 import { MEDIA_TYPE_LABELS, STATUS_LABELS } from '../../models/media.utils';
 import {
   MediaFilters,
@@ -10,17 +12,17 @@ import {
 @Component({
   selector: 'app-media-list',
   standalone: true,
-  imports: [MediaFormComponent, MediaFiltersComponent],
+  imports: [MediaFiltersComponent],
   templateUrl: './media-list.component.html',
   styleUrls: ['./media-list.component.scss'],
 })
 export class MediaListComponent {
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
   mediaService = inject(MediaService);
   medias = this.mediaService.medias$;
   typeLabels = MEDIA_TYPE_LABELS;
   statusLabels = STATUS_LABELS;
-  editingId: number | null = null;
-  showForm = false;
   filters = signal<MediaFilters>({
     title: '',
     creator: '',
@@ -29,20 +31,28 @@ export class MediaListComponent {
     rating: null,
   });
 
-  toggleForm() {
-    this.showForm = !this.showForm;
+  goToDetail(id: number) {
+    this.router.navigate(['/media', id]);
+  }
+
+  openAddDialog() {
+    this.dialog.open(MediaFormDialogComponent, {
+      data: {},
+      width: '600px',
+    });
   }
 
   edit(id: number) {
-    this.editingId = id;
-  }
-
-  clearEdit() {
-    this.editingId = null;
+    this.dialog.open(MediaFormDialogComponent, {
+      data: { mediaId: id },
+      width: '600px',
+    });
   }
 
   delete(id: number) {
-    this.mediaService.delete(id);
+    if (confirm('Supprimer ce média ?')) {
+      this.mediaService.delete(id);
+    }
   }
 
   count = computed(() => this.filteredMedias().length);

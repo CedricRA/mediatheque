@@ -8,3 +8,13 @@ export interface Media {
   status: 'planned' | 'consumed';
   rating?: number; // 0-5
 }
+
+export interface MediaDetails extends Media {
+  synopsis?: string;
+  coverUrl?: string;
+  releaseDate?: string;
+  genres?: string[];
+  duration?: number;
+  comment?: string;
+  createdAt?: string;
+}

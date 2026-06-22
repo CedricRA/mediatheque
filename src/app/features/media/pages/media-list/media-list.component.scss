@@ -21,7 +21,11 @@ h2 {
   border-radius: 1rem;
   padding: 1rem;
 
-  min-height: 15rem; /* optionnel mais améliore uniformité */
+  min-height: 15rem;
+}
+
+.media-card:hover {
+  cursor: pointer;
 }
 
 .media-card h3 {
@@ -100,5 +104,6 @@ h2 {
   display: flex;
   gap: 0.5rem;
   margin-top: 1rem;
+  align-items: center;
 }
 

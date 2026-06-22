@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { MediaListComponent } from './media-list.component';
+import { MediaDetailComponent } from './media-detail.component';
 
-describe('MediaListComponent', () => {
-  let component: MediaListComponent;
-  let fixture: ComponentFixture<MediaListComponent>;
+describe('MediaDetailComponent', () => {
+  let component: MediaDetailComponent;
+  let fixture: ComponentFixture<MediaDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MediaListComponent],
+      imports: [MediaDetailComponent],
       providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MediaListComponent);
+    fixture = TestBed.createComponent(MediaDetailComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

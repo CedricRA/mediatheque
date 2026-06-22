@@ -1,13 +1,9 @@
 <app-media-filters (filtersChange)="filters.set($event)" />
 <p>{{ count() }} résultat(s)</p>
 
-<button (click)="toggleForm()">
-  {{ showForm ? 'Fermer le formulaire' : 'Ajouter un média' }}
+<button (click)="openAddDialog()">
+  Ajouter un média
 </button>
-
-@if (showForm) {
-  <app-media-form [mediaId]="editingId || undefined" (saved)="toggleForm(); clearEdit()" />
-}
 
 <table class="media-table">
   <thead>
@@ -23,7 +19,7 @@
 
   <tbody>
     @for (media of filteredMedias(); track media.id) {
-      <tr>
+      <tr (click)="goToDetail(media.id)" class="clickable-row">
         <td>{{ media.title }}</td>
         <td>{{ media.creator }}</td>
         <td>{{ typeLabels[media.type] }}</td>
@@ -38,8 +34,9 @@
         </td>
 
         <td class="actions">
-          <button (click)="edit(media.id)">✏️</button>
-          <button (click)="delete(media.id)">❌</button>
+          <button (click)="goToDetail(media.id); $event.stopPropagation()">👁️</button>
+          <button (click)="edit(media.id); $event.stopPropagation()">✏️</button>
+          <button (click)="delete(media.id); $event.stopPropagation()">❌</button>
         </td>
       </tr>
     }

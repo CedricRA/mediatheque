@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" class="form">
 
-  <input placeholder="Titre" formControlName="title" />
+  <input placeholder="Titre" formControlName="title" class="field-full" />
 
   <input placeholder="Auteur / Créateur" formControlName="creator" />
 
@@ -16,11 +16,25 @@
     }
   </select>
 
-  <!-- étoiles ici (remplace input rating) -->
   <app-rating formControlName="rating" />
 
-  <button type="submit">
-    {{ mediaId ? 'Modifier' : 'Ajouter' }}
-  </button>
+  <input placeholder="URL de l'image/couverture" formControlName="coverUrl" class="field-full" />
+
+  <input placeholder="Date de sortie" formControlName="releaseDate" />
+
+  <input placeholder="Genres (séparés par des virgules)" formControlName="genres" />
+
+  <input type="number" placeholder="Durée" formControlName="duration" />
+
+  <textarea placeholder="Synopsis / Description" formControlName="synopsis" class="field-full" rows="3"></textarea>
+
+  <textarea placeholder="Mon avis" formControlName="comment" class="field-full" rows="3"></textarea>
+
+  <div class="form-actions">
+    <button type="button" class="btn-cancel" (click)="cancel.emit()">Annuler</button>
+    <button type="submit">
+      {{ mediaId ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </div>
 
 </form>

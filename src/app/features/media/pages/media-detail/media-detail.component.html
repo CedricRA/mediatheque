@@ -1,0 +1,91 @@
+@if (media(); as mediaItem) {
+  <div class="detail-container">
+    <a routerLink="/" class="back-link">← Retour à la liste</a>
+
+    <div class="detail-layout">
+      <div class="detail-cover">
+        @if (mediaItem.coverUrl) {
+          <img [src]="mediaItem.coverUrl" [alt]="mediaItem.title" class="cover-image" />
+        } @else {
+          <div class="cover-placeholder">
+            <span class="cover-initial">{{ mediaItem.title[0] }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="detail-info">
+        <h1>{{ mediaItem.title }}</h1>
+        <p class="creator">{{ mediaItem.creator }}</p>
+
+        <div class="badges">
+          <span class="badge type-badge">{{ typeLabels[mediaItem.type] }}</span>
+          <span class="badge status-badge" [class.planned]="mediaItem.status === 'planned'">
+            {{ statusLabels[mediaItem.status] }}
+          </span>
+        </div>
+
+        <div class="stars">
+          @for (star of [1, 2, 3, 4, 5]; track star) {
+            <span class="star" [class.active]="star <= (mediaItem.rating || 0)">★</span>
+          }
+          @if (mediaItem.rating) {
+            <span class="rating-text">{{ mediaItem.rating }}/5</span>
+          }
+        </div>
+
+        @if (mediaItem.genres?.length) {
+          <div class="genres">
+            @for (genre of mediaItem.genres; track genre) {
+              <span class="genre-tag">{{ genre }}</span>
+            }
+          </div>
+        }
+
+        <dl class="meta-list">
+          @if (mediaItem.releaseDate) {
+            <div class="meta-item">
+              <dt>Date de sortie</dt>
+              <dd>{{ mediaItem.releaseDate }}</dd>
+            </div>
+          }
+          @if (mediaItem.duration) {
+            <div class="meta-item">
+              <dt>Durée</dt>
+              <dd>{{ mediaItem.duration }}</dd>
+            </div>
+          }
+          @if (mediaItem.createdAt) {
+            <div class="meta-item">
+              <dt>Ajouté le</dt>
+              <dd>{{ mediaItem.createdAt | date:'mediumDate' }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+    </div>
+
+    @if (mediaItem.synopsis) {
+      <section class="detail-section">
+        <h2>Synopsis</h2>
+        <p class="synopsis">{{ mediaItem.synopsis }}</p>
+      </section>
+    }
+
+    @if (mediaItem.comment) {
+      <section class="detail-section">
+        <h2>Mon avis</h2>
+        <p class="comment">{{ mediaItem.comment }}</p>
+      </section>
+    }
+
+    <div class="detail-actions">
+      <button class="btn" (click)="edit()">Modifier</button>
+      <button class="btn btn-danger" (click)="delete()">Supprimer</button>
+    </div>
+  </div>
+} @else {
+  <div class="not-found">
+    <h2>Média introuvable</h2>
+    <a routerLink="/">← Retour à la liste</a>
+  </div>
+}

@@ -1,25 +1,27 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { MediaService } from '../../services/media.service';
 import { MEDIA_TYPE_LABELS, STATUS_LABELS } from '../../models/media.utils';
 import {
   MediaFiltersComponent,
   MediaFilters,
 } from '../../components/media-filters/media-filters.component';
-import { MediaFormComponent } from '../../components/media-form/media-form.component';
+import { MediaFormDialogComponent } from '../../components/media-form-dialog/media-form-dialog.component';
 
 @Component({
   selector: 'app-media-grid',
   standalone: true,
-  imports: [MediaFormComponent, MediaFiltersComponent],
+  imports: [MediaFiltersComponent],
   templateUrl: './media-grid.component.html',
   styleUrl: './media-grid.component.scss',
 })
 export class MediaGridComponent {
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
   private mediaService = inject(MediaService);
 
   medias = this.mediaService.medias$;
-  editingId: number | null = null;
-  showForm = false;
   typeLabels = MEDIA_TYPE_LABELS;
   statusLabels = STATUS_LABELS;
 
@@ -45,21 +47,27 @@ export class MediaGridComponent {
     );
   });
 
+  goToDetail(id: number) {
+    this.router.navigate(['/media', id]);
+  }
+
+  openAddDialog() {
+    this.dialog.open(MediaFormDialogComponent, {
+      data: {},
+      width: '600px',
+    });
+  }
+
   edit(id: number) {
-    this.editingId = id;
+    this.dialog.open(MediaFormDialogComponent, {
+      data: { mediaId: id },
+      width: '600px',
+    });
   }
 
   delete(id: number) {
     if (confirm('Supprimer ce média ?')) {
       this.mediaService.delete(id);
     }
-  }
-
-  toggleForm() {
-    this.showForm = !this.showForm;
-  }
-
-  clearEdit() {
-    this.editingId = null;
   }
 }

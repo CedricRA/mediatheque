@@ -1,11 +1,11 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Media } from '../models/media.model';
+import { Media, MediaDetails } from '../models/media.model';
 
 const STORAGE_KEY = 'media-library';
 
 @Injectable({ providedIn: 'root' })
 export class MediaService {
-  private medias = signal<Media[]>(this.loadFromStorage());
+  private medias = signal<MediaDetails[]>(this.loadFromStorage());
 
   private nextId = 1;
 
@@ -16,17 +16,19 @@ export class MediaService {
     }
   }
 
-  medias$ = computed(() => this.medias());
+  medias$ = computed(() => this.medias() as Media[]);
 
-  add(media: Omit<Media, 'id'>) {
+  private mediasDetails$ = computed(() => this.medias());
+
+  add(media: Omit<MediaDetails, 'id' | 'createdAt'>) {
     this.medias.update((list) => {
-      const updated = [...list, { ...media, id: this.nextId++ }];
+      const updated = [...list, { ...media, id: this.nextId++, createdAt: new Date().toISOString() }];
       this.saveToStorage(updated);
       return updated;
     });
   }
 
-  update(updatedMedia: Media) {
+  update(updatedMedia: MediaDetails) {
     this.medias.update((list) => {
       const updated = list.map((m) => (m.id === updatedMedia.id ? updatedMedia : m));
       this.saveToStorage(updated);
@@ -42,11 +44,11 @@ export class MediaService {
     });
   }
 
-  getById(id: number) {
+  getById(id: number): MediaDetails | undefined {
     return this.medias().find((m) => m.id === id);
   }
 
-  private loadFromStorage(): Media[] {
+  private loadFromStorage(): MediaDetails[] {
     const data = localStorage.getItem(STORAGE_KEY);
 
     if (!data) return [];
@@ -58,7 +60,7 @@ export class MediaService {
     }
   }
 
-  private saveToStorage(data: Media[]) {
+  private saveToStorage(data: MediaDetails[]) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 }

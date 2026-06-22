@@ -19,6 +19,10 @@ tr:hover {
   background: rgba(255,255,255,0.03);
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+
 /* étoiles */
 .stars {
   display: flex;
@@ -37,4 +41,5 @@ tr:hover {
 .actions {
   display: flex;
   gap: 0.3rem;
+  align-items: center;
 }

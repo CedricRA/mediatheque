@@ -1,3 +1,16 @@
+@use '@angular/material' as mat;
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$green-palette,
+  ),
+));
+
+html {
+  @include mat.all-component-themes($theme);
+}
+
 :root {
   --bg-color: #0f172a;            /* dark blue/black */
   --card-color: #111827;          /* dark card */
