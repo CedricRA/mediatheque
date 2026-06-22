@@ -34,7 +34,7 @@ export class MediaFormComponent {
     coverUrl: '',
     releaseDate: '',
     genres: '',
-    duration: null as number | null,
+    duration: null as string | null,
     comment: '',
   });
 

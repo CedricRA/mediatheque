@@ -1,5 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Media, MediaDetails } from '../models/media.model';
+import seedData from '../../../../assets/data/seed-media.json';
 
 const STORAGE_KEY = 'media-library';
 
@@ -51,7 +52,9 @@ export class MediaService {
   private loadFromStorage(): MediaDetails[] {
     const data = localStorage.getItem(STORAGE_KEY);
 
-    if (!data) return [];
+    if (!data) {
+      return this.seed();
+    }
 
     try {
       return JSON.parse(data);
@@ -62,5 +65,14 @@ export class MediaService {
 
   private saveToStorage(data: MediaDetails[]) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  private seed(): MediaDetails[] {
+    const now = new Date().toISOString();
+    return (seedData as any[]).map((item, index) => ({
+      ...item,
+      id: index + 1,
+      createdAt: now,
+    }));
   }
 }

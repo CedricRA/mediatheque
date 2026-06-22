@@ -14,7 +14,7 @@ export interface MediaDetails extends Media {
   coverUrl?: string;
   releaseDate?: string;
   genres?: string[];
-  duration?: number;
+  duration?: string;
   comment?: string;
   createdAt?: string;
 }
